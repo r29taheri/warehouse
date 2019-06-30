@@ -1,0 +1,60 @@
+<div class="container">
+    <div class="side-header">
+        {{buttonTitle}}
+    </div>
+    <div class="side-body">
+        <form (ngSubmit)="onAdd()" [formGroup]="product">
+            <div class="input-box">
+                <label for="">Quantity</label>
+                <input type="number" placeholder="Insert quantity" min="1" formControlName="quantity">
+                <div class="error-box" *ngIf="formProductControls.quantity.invalid && (formProductControls.quantity.dirty || formProductControls.quantity.touched)">
+                    <div *ngIf="formProductControls.quantity.errors.minlength">
+                        Length should be greater than 1.
+                    </div>
+                    <div *ngIf="!formProductControls.quantity.quantityChecker">
+                        Number type must be integer.
+                    </div>
+                </div>
+            </div>
+            <div class="input-box">
+                <label for="">Code</label>
+                <input type="text" placeholder="Insert code, ex: MYTZ 1234, UK 13462, KOB 8472" formControlName="code" name="code">
+                <div class="error-box" *ngIf="formProductControls.code.invalid && (formProductControls.code.dirty || formProductControls.code.touched)">
+                    <div *ngIf="!formProductControls.code.codeChecker">
+                            Code is not correct, ex: MYTZ 1234, UK 13462, KOB 8472.
+                    </div>
+                </div>
+            </div>
+            <div class="input-box">
+                <label for="">Floor</label>
+                <select name="" id="" formControlName="floor">
+                    <option value="" disabled selected>Select floor</option>
+                    <option *ngFor="let floor of floors" [value]="floor">{{floor}}</option>
+                </select>
+            </div>
+            <div class="input-box">
+                <label for="">Section</label>
+                <select name="" id="" formControlName="section">
+                    <option value="" disabled selected>Select section</option>
+                    <option *ngFor="let section of sections" [value]="section">{{section}}</option>
+                </select>
+            </div>
+            <div class="message success-message" *ngIf="!editMode && showMessage" [ngClass]="{'show-visibility': showMessage}">
+                Product is added successfully.
+            </div>
+            <div class="message success-message" *ngIf="editMode && showMessage" [ngClass]="{'show-visibility': showMessage}">
+                Product is updated successfully
+            </div>
+            <div class="message error-message" *ngIf="errorMessage">
+                {{errorMessage}}
+            </div>
+            <div class="button-box" *ngIf="!editMode">
+                <button type="submit" [disabled]="product.invalid">Submit</button>
+            </div>
+            <div class="button-box button-group" *ngIf="editMode">
+                <button type="submit" [disabled]="product.invalid">Submit</button>
+                <button class="cancel-btn" type="button" (click)="onCancel()">Cancel</button>
+            </div>
+        </form>
+    </div>
+</div>

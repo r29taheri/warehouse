@@ -1,0 +1,50 @@
+<div class="container">
+    <div class="left-side">
+        <div class="side-header">
+            Filters
+            <img src="/assets/img/clear.png" alt="Clear filters" (click)="onClearFilters()">
+        </div>
+        <div class="side-body">
+            <div class="input-box">
+                <input type="text" placeholder="Search by code" (input)="saveFilters(floor, section, $event.target.value)" [(ngModel)]="search">
+            </div>
+            <div>
+                <p>Floors:</p>
+                <ul>
+                    <li *ngFor="let item of floors" (click)="onSelect(item, section, true)" [ngClass]="{'active': item === floor}">Floor {{item}}</li>
+                </ul>
+            </div>
+            <div>
+                <p>Sections:</p>
+                <ul>
+                    <li *ngFor="let item of sections" (click)="onSelect(floor, item, false)" disabled [ngClass]="{'active': item === section}">Section {{item}}</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="right-side">
+        <div class="side-header">
+            Products
+        </div>
+        <div class="side-body">
+            <ng-container *ngIf="products.length > 0; else noProductFound">
+                <div class="product-container" *ngFor="let item of products | search: search; let l = count; let i = index">
+                    <div *ngIf="i === 0">
+                        <p>Showing {{l}} of {{productsCount}}</p>
+                        <hr>
+                    </div>
+                    <div class="product-box">
+                        <p><strong>{{item.code}}</strong></p>
+                        <p>Quantity: {{item.quantity}}</p>
+                        <p>Location: {{item.floor}} / {{item.section}}</p>
+                        <img src="/assets/img/edit.png" alt="edit product" (click)="onEdit(item.code)">
+                        </div>
+                </div>
+            </ng-container>
+            <ng-template #noProductFound>
+                <p>No product found.</p>
+            </ng-template>
+            
+        </div>
+    </div>
+</div>

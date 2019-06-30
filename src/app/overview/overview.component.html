@@ -1,0 +1,20 @@
+<div class="container">
+    <table>
+        <thead>
+            <tr>
+                <th></th>
+                <th *ngFor="let section of sections">Section {{section}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let floor of floors">
+                <th>Floor {{floor}}</th>
+                <th *ngFor="let section of sections">
+                    <div *ngFor="let item of products">
+                        <span *ngIf="item.section === section && item.floor === floor">{{item.code}}: {{item.quantity}}</span>
+                    </div>
+                </th>
+            </tr>
+        </tbody>
+    </table>
+</div>

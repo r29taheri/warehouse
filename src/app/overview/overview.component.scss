@@ -1,0 +1,23 @@
+.container {
+    overflow-x: auto;
+}
+table {
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+    text-align: center;
+}
+tbody>tr {
+    transition: 300ms;
+}
+tbody>tr>th {
+    font-weight: 300;
+}
+tbody>tr:hover {
+    background-color: #dddddd;
+}

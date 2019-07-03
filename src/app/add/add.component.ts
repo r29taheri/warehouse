@@ -10,7 +10,7 @@ import { quantityChecker } from '../validators/quantityChecker';
 @Component({
   selector: 'app-add',
   templateUrl: './add.component.html',
-  styleUrls: ['./add.component.scss']
+  styleUrls: ['./add.component.css']
 })
 export class AddComponent implements OnInit {
   products: Array<Product> = new Array<Product>();

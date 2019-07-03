@@ -6,7 +6,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-show',
   templateUrl: './show.component.html',
-  styleUrls: ['./show.component.scss']
+  styleUrls: ['./show.component.css']
 })
 export class ShowComponent implements OnInit {
   products: Array<Product> = new Array<Product>();
@@ -16,6 +16,7 @@ export class ShowComponent implements OnInit {
   floor: number;
   section: number;
   productsCount: number;
+  clearFilters: boolean = false;
   constructor(private productService: ProductService, private router: Router) { }
   onGet() {
     this.products = this.productService.getProducts();
@@ -47,14 +48,21 @@ export class ShowComponent implements OnInit {
     this.saveFilters(this.floor, this.section, this.search);
   }
   saveFilters(floor: number, section: number, search: string) {
+    this.clearFilters = true;
     const filters = {
       floor : floor ? floor : undefined,
       section : section ? section : undefined,
-      search
+      search: search ? search : undefined
     }
-    sessionStorage.setItem('filters', JSON.stringify(filters));
+    if(filters.floor || filters.search || filters.section)
+      sessionStorage.setItem('filters', JSON.stringify(filters));
+    else {
+      sessionStorage.removeItem('filters');
+      this.clearFilters = false;
+    }
   }
   onClearFilters() {
+    this.clearFilters = false;
     sessionStorage.removeItem('filters');
     this.search = null;
     this.floor = null;
@@ -65,6 +73,7 @@ export class ShowComponent implements OnInit {
     const filters = JSON.parse(sessionStorage.getItem('filters'));
     if(filters) {
       this.search = filters.search;
+      this.clearFilters = true;
       if(filters.floor) {
         this.floor = filters.floor ? filters.floor : this.floor;
         this.section = filters.section ? filters.section : this.section;

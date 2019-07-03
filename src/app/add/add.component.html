@@ -5,6 +5,15 @@
     <div class="side-body">
         <form (ngSubmit)="onAdd()" [formGroup]="product">
             <div class="input-box">
+                <label for="">Code</label>
+                <input type="text" placeholder="Insert code, ex: MYTZ 1234, UK 13462, KOB 8472" formControlName="code" name="code">
+                <div class="error-box" *ngIf="formProductControls.code.invalid && (formProductControls.code.dirty || formProductControls.code.touched)">
+                    <div *ngIf="!formProductControls.code.codeChecker">
+                            Code is not correct, ex: MYTZ 1234, UK 13462, KOB 8472.
+                    </div>
+                </div>
+            </div>
+            <div class="input-box">
                 <label for="">Quantity</label>
                 <input type="number" placeholder="Insert quantity" min="1" formControlName="quantity">
                 <div class="error-box" *ngIf="formProductControls.quantity.invalid && (formProductControls.quantity.dirty || formProductControls.quantity.touched)">
@@ -13,15 +22,6 @@
                     </div>
                     <div *ngIf="!formProductControls.quantity.quantityChecker">
                         Number type must be integer.
-                    </div>
-                </div>
-            </div>
-            <div class="input-box">
-                <label for="">Code</label>
-                <input type="text" placeholder="Insert code, ex: MYTZ 1234, UK 13462, KOB 8472" formControlName="code" name="code">
-                <div class="error-box" *ngIf="formProductControls.code.invalid && (formProductControls.code.dirty || formProductControls.code.touched)">
-                    <div *ngIf="!formProductControls.code.codeChecker">
-                            Code is not correct, ex: MYTZ 1234, UK 13462, KOB 8472.
                     </div>
                 </div>
             </div>

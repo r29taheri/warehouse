@@ -2,7 +2,7 @@
     <div class="left-side">
         <div class="side-header">
             Filters
-            <img src="/assets/img/clear.png" alt="Clear filters" (click)="onClearFilters()">
+            <img src="/assets/img/clear.png" alt="Clear filters" *ngIf="clearFilters" (click)="onClearFilters()">
         </div>
         <div class="side-body">
             <div class="input-box">
